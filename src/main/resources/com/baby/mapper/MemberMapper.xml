@@ -7,5 +7,11 @@
     insert into baby_member values (#{memberId}, #{memberPw}, #{memberName}, #{memberMail}, #{memberAddr1}, #{memberAddr2}, #{memberAddr3}, 0, now(), 100000, 5000 )
 </insert>
 
+<!-- 아이디 중복검사 -->
+<select id="idCheck" resultType="int">
+
+	select count(*) from baby_member where memberId = #{memberId}
+	
+</select>
 
   </mapper>
