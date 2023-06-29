@@ -51,13 +51,14 @@
 					<input class="mail_input" name="memberMail">
 				</div>
 				<div class="mail_check_wrap">
-					<div class="mail_check_input_box">
-						<input class="mail_check_input" name="">
+					<div class="mail_check_input_box" id="mail_check_input_box_false">
+						<input class="mail_check_input" disabled="disabled">
 					</div>
 					<div class="mail_check_button">
 						<span>인증번호 전송</span>
 					</div>
 					<div class="clearfix"></div>
+					<span id="mail_check_input_box_warn"></span>
 				</div>
 			</div>
 			<div class="address_wrap">
@@ -90,6 +91,8 @@
 </div>
 
 <script>
+
+var code = ""; // 이메일전송 인증번호 저장을 위한 코드
 
 $(document).ready(function(){
 	//회원가입 버튼(회원가입 기능 작동)
@@ -128,6 +131,45 @@ var memberId = $('.id_input').val();			// .id_input에 입력되는 값
 
 });// function 종료
 
+/* 인증번호 이메일 전송 */
+$(".mail_check_button").click(function(){
+    
+	var email = $(".mail_input").val();        // 입력한 이메일
+	var checkBox = $(".mail_check_input"); //인증번호 입력란
+	var boxWrap = $(".mail_check_input_box"); // 인증번호 입력란 박스
+	
+	
+	
+	$.ajax({
+		type : "GET",
+		url : "mailCheck?email=" + email,
+		success : function(data){
+			
+			console.log("data : " + data);		
+			checkBox.attr("disabled",false); 
+			boxWrap.attr("id", "mail_check_input_box_true");
+			code = data;			
+					
+					
+				}
+	});
+});
+
+/* 인증번호 비교 */
+$(".mail_check_input").blur(function(){
+	var inputCode = $(".mail_check_input").val(); // 입력코드
+	var checkResult = $("#mail_check_input_box_warn"); //비교결과
+	
+	if(inputCode == code){
+		checkResult.html("인증번호가 일치합니다.");  //일치
+		checkResult.attr("class", "correct");
+		
+	}else{
+		checkResult.html("인증번호를 다시 확인해주세요.");  //불일치
+		checkResult.attr("class", "incorrect");
+	}
+		
+});
 </script>
 
 </body>

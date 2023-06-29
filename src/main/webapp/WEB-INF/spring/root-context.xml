@@ -26,6 +26,22 @@
        <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="datasource"></property>
     </bean> 
+     
+     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
+ <property name="host" value="smtp.gmail.com"/> <!-- 메이서버 호스트 -->
+ <property name="port" value="587"/> <!-- 메이서버 포트번호 -->
+ <property name="username" value="dbad010101@gmail.com"/> <!-- 자신의 이메일 아이디 -->
+ <property name="password" value="ztimhpwzrpnyaphd"/> <!-- 자신의 비밀번호 -->
+   <!-- 보안연결 SSL과 관련된 설정 -->
+ <property name="javaMailProperties">
+  <props>
+  <prop key="mail.smtp.auth">true</prop>
+  <prop key="mail.smtp.starttls.enable">true</prop>
+  
+  </props>
+ </property>
+</bean>
+    
     
      <mybatis-spring:scan base-package="com.baby.mapper"/>
     <context:component-scan base-package="com.baby.model"></context:component-scan>
