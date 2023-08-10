@@ -32,14 +32,37 @@ public class MemberMapperTests {
 //		
 //	}
 	
+//	@Test
+//	public void memberIdChk() throws Exception{
+//		String id = "admin"; //존재하는 ID
+//		String id2 = "test111"; //존재하지 않는 ID
+//		
+//		membermapper.idCheck(id);
+//		membermapper.idCheck(id2);
+//	}
+	
+	/* 로그인 쿼리 mapper 메서드 테스트 */
+	
 	@Test
-	public void memberIdChk() throws Exception{
-		String id = "admin"; //존재하는 ID
-		String id2 = "test111"; //존재하지 않는 ID
+	public void memberLogin() throws Exception{
 		
-		membermapper.idCheck(id);
-		membermapper.idCheck(id2);
+		MemberVO member = new MemberVO();  // membervo 변수 선언 및 초기화
+		
+		/* 올바른 아이디 비번 입력경우 */ 
+		member.setMemberId("test2");
+		member.setMemberPw("test");
+		
+//		/* 올바르지 않는 아이디 비번 입력경우 */ 
+//		member.setMemberId("t12321est1");
+//		member.setMemberPw("te12312st1");
+		
+		membermapper.memberLogin(member);
+		System.out.println("결과 값 : " + membermapper.memberLogin(member));
+		
+		
 	}
+	
+	
 	
 	
 	

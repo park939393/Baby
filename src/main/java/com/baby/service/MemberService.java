@@ -9,5 +9,8 @@ public interface MemberService {
 	
 	//id중복 검사
 		public int idCheck(String memberId) throws Exception;
+		
+		//로그인
+		public MemberVO memberLogin(MemberVO member);
 
 }

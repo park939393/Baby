@@ -18,5 +18,12 @@ public class BabyController {
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public void mainPageGET() {
 		logger.info("메인 페이지 진입");
+		
+		
+	
 	}
 }
+
+
+
+
