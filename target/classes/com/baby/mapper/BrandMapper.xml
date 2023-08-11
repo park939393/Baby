@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.baby.mapper.BrandMapper">
+  
+<!--  브랜드 등록 -->
+	<insert id="brandEnroll">
+	
+		insert into baby_brand(brandName, nationId, brandIntro) values(#{brandName}, #{nationId}, #{brandIntro})
+	
+	</insert>
+	
+<!-- 브랜드 목록	 -->
+	<select id="brandGetList" resultType="com.baby.model.BrandVO">
+	
+		select brandid, brandname, nationid, regdate, updatedate 
+		from baby_brand
+		<if test="keyword != null">
+			where brandname like concat('%',#{keyword}, '%')
+		</if>
+		order by brandid desc
+		limit #{skip}, #{amount}
+	
+	</select>
+	
+<!-- 브랜드 수	 -->
+	<select id="brandGetTotal" resultType="int">
+	
+	select count(*) from baby_brand 
+	
+	<if test="keyword != null">
+			where brandname like concat('%',#{keyword}, '%')
+		</if>
+	
+	</select>
+      
+      
+  </mapper>
