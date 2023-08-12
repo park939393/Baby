@@ -11,41 +11,56 @@ import com.baby.mapper.BrandMapper;
 import com.baby.model.BrandVO;
 import com.baby.model.Criteria;
 
-
 @Service
-public class BrandServiceImpl implements BrandService{
-	
+public class BrandServiceImpl implements BrandService {
+
 	private static final Logger Log = LoggerFactory.getLogger(BrandServiceImpl.class);
-	
+
 	@Autowired
 	BrandMapper brandMapper;
 
-	
-	/*브랜드 등록*/
+	/* 브랜드 등록 */
 	@Override
-	public void brandEnroll(BrandVO brand) throws Exception{
-		
+	public void brandEnroll(BrandVO brand) throws Exception {
+
 		brandMapper.brandEnroll(brand);
-		
-		
-		
+
 	}
-	/*브랜드 목록*/
+
+	/* 브랜드 목록 */
 	@Override
 	public List<BrandVO> brandGetList(Criteria cri) throws Exception {
-		
+
 		Log.info("(service)brandGetList()......" + cri);
-		
-		
+
 		return brandMapper.brandGetList(cri);
 	}
-	/*브랜드 총 수*/
+
+	/* 브랜드 총 수 */
 	@Override
 	public int brandGetTotal(Criteria cri) throws Exception {
-		
+
 		Log.info("(service)brandGetTotal()......" + cri);
-		
+
 		return brandMapper.brandGetTotal(cri);
+	}
+
+	/* 브랜드 상세 페이지 */
+	@Override
+	public BrandVO brandGetDetail(int brandId) throws Exception {
+
+		Log.info("(service)brandGetDetail()......" + brandId);
+
+		return brandMapper.brandGetDetail(brandId);
+	}
+
+	/* 브랜드 정보 수정 */
+	@Override
+	public int brandModify(BrandVO brand) throws Exception {
+
+		Log.info("(service)brandModify()......" + brand);
+
+		return brandMapper.brandModify(brand);
 	}
 
 }

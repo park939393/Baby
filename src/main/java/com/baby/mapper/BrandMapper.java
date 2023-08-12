@@ -15,5 +15,11 @@ public interface BrandMapper {
 	
 	/*브랜드 총 수*/
 	public int brandGetTotal(Criteria cri);
+	
+	/* 브랜드 상세 */
+	public BrandVO brandGetDetail(int brandId);
+	
+	/* 브랜드 정보 수정*/
+	public int brandModify(BrandVO brand);
 
 }

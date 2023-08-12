@@ -15,6 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.baby.model.BrandVO;
 import com.baby.model.Criteria;
 import com.baby.model.PageDTO;
+import com.baby.model.ProductVO;
+import com.baby.service.AdminService;
 import com.baby.service.BrandService;
 
 
@@ -30,6 +32,9 @@ public class AdminController {
 	@Autowired
 	private BrandService brandService;
 	
+	@Autowired
+	private AdminService adminService;
+	
 	// 관리자 메인 페이지 이동
 	@GetMapping("main")
 	public void adminMainGET() throws Exception{
@@ -38,14 +43,14 @@ public class AdminController {
 	}
 	
 	// 상품 관리 페이지 접속
-	@GetMapping("goodsManage")
-	public void goodsManageGET() throws Exception{
+	@GetMapping("productManage")
+	public void productManageGET() throws Exception{
 		logger.info("상품 관리 페이지 접속");
 	}
 	
 	//상품 등록 페이지 접속
-	@GetMapping("goodsEnroll")
-	public void goodsEnrollGET()throws Exception{
+	@GetMapping("productEnroll")
+	public void productEnrollGET()throws Exception{
 		logger.info("상품 등록 페이지 접속");
 	}
 	
@@ -77,7 +82,7 @@ public class AdminController {
 		model.addAttribute("pageMaker", pageMaker);
 	}
 	
-	/*작가 등록*/
+	/*브랜드 등록*/
 	@PostMapping("brandEnroll.do")
 	public String brandEnrollPOST(BrandVO brand, RedirectAttributes rttr) throws Exception{
 		
@@ -90,6 +95,52 @@ public class AdminController {
 		return "redirect:/admin/brandManage";
 		
 	}
+	
+	/*브랜드 상세 페이지*/
+	@GetMapping({"/brandDetail", "/brandModify"})
+	public void brandGetInfoGET(int brandId, Criteria cri, Model model) throws Exception{
+		
+		logger.info("brandGetInfo :" + brandId);
+		
+		brandService.brandGetDetail(brandId);
+		
+		/*브랜드 관리 페이지 정보*/
+		model.addAttribute("cri",cri);
+		
+		
+		/*선택 브랜드 정보*/
+		model.addAttribute("brandInfo", brandService.brandGetDetail(brandId));
+		
+	}
+	
+	/*브랜드 정보 수정*/
+	@PostMapping("/brandModify")
+	public String brandModifyPOST(BrandVO brand, RedirectAttributes rttr) throws Exception{
+		
+		logger.info("brandModifyPOST :" + brand);
+		
+		int result = brandService.brandModify(brand);
+		
+		rttr.addFlashAttribute("modify_result", result);
+		
+		return "redirect:/admin/brandManage";
+		
+	}
+	
+	/*상품 등록*/
+	@PostMapping("/productEnroll")
+	public String productEnrollPOST(ProductVO product, RedirectAttributes rttr) {
+		
+		logger.info("productEnrollPOST :" + product);
+		
+		adminService.productEnroll(product);
+		
+		rttr.addFlashAttribute("enroll_result", product.getProductName());
+		
+		return "redirect:/admin/productManage";
+		
+	}
+	
 	
 	
 

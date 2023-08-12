@@ -34,6 +34,18 @@
 		</if>
 	
 	</select>
-      
+	<!-- 브랜드 상세-->
+	<select id="brandGetDetail" resultType="com.baby.model.BrandVO">
+	
+		select * from baby_brand where brandId = #{brandId}
+	
+	</select>
+	
+    <!-- 브랜드 정보 수정-->
+    <update id="brandModify">
+    
+    	update baby_brand set brandName=#{brandName}, nationId=#{nationId}, brandIntro=#{brandIntro}, updatedate=now() where brandId = #{brandId}
+    
+    </update>  
       
   </mapper>

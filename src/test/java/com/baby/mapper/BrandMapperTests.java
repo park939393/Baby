@@ -46,15 +46,45 @@ public class BrandMapperTests {
 //	}
 	
 	/*브랜드 총 수*/
+//	@Test
+//	public void brandGetTotal() throws Exception{
+//		
+//		Criteria cri = new Criteria();
+//		cri.setKeyword("근두");
+//		
+//		int total = mapper.brandGetTotal(cri);
+//		
+//		System.out.println("total......." + total);
+//	}
+	/*작가 상세 페이지*/
+//	@Test
+//	public void brandGetDetailTest() {
+//		
+//		int brandId = 30;
+//		
+//		BrandVO brand = mapper.brandGetDetail(brandId);
+//		
+//		System.out.println("brand......." + brand);
+//	}
+	
+	/*브랜드 수정*/
 	@Test
-	public void brandGetTotal() throws Exception{
+	public void brandModifyTest() {
 		
-		Criteria cri = new Criteria();
-		cri.setKeyword("근두");
+		BrandVO brand = new BrandVO();
 		
-		int total = mapper.brandGetTotal(cri);
+		brand.setBrandId(1);
+		System.out.println("수정 전 ........." + mapper.brandGetDetail(brand.getBrandId()));
 		
-		System.out.println("total......." + total);
+		brand.setBrandName("수정");
+		brand.setNationId("01");
+		brand.setBrandIntro("소개 수정완료");
+		
+		mapper.brandModify(brand);
+		System.out.println("수정 후 ........." + mapper.brandGetDetail(brand.getBrandId()));
+		
+		
+		
 	}
 
 }

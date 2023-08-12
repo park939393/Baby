@@ -38,7 +38,12 @@
 				<c:forEach items="${list}" var="list">
 					<tr>
 						<td><c:out value="${list.brandId}"></c:out></td>
-						<td><c:out value="${list.brandName}"></c:out></td>
+						
+						<td>
+							<a class="move" href='<c:out value="${list.brandId}"/>'>
+						<c:out value="${list.brandName}"></c:out>
+						</a>
+						</td>
 						<td><c:out value="${list.nationName}"></c:out></td>
 						<td><fmt:formatDate value="${list.regDate}"
 								pattern="yyyy-MM-dd" /></td>
@@ -148,6 +153,31 @@
 			
 			searchForm.submit();
 		});
+		
+		/*브랜드 상세 페이지 이동*/
+		$(".move").on("click", function(e){
+			
+			e.preventDefault();
+			
+			moveForm.append("<input type='hidden' name='brandId' value='"+ $(this).attr("href") + "'>");
+			moveForm.attr("action", "/admin/brandDetail");
+			moveForm.submit();
+			
+		});
+		
+		let mresult = '<c:out value="${modify_result}"/>';
+		
+		checkmResult(mresult);
+		
+		function checkmResult(mresult) {
+			
+			if(mresult === '1'){
+				alert("브랜드 정보 수정을 완료하였습니다.");
+			}else if(mresult === '0'){
+				alert("브랜드 정보를 수정하지 못하였습니다.")
+			}
+			
+		}
 		
 	</script>
 
