@@ -11,5 +11,12 @@
 	values(#{productName},#{brandId},#{releaseDate},#{company},#{cateCode},#{productPrice},#{productStock},#{productDiscount},#{productIntro},#{productContents})
 
 </insert>
+
+<!-- 카테고리 리스트 -->
+<select id="cateList" resultType="com.baby.model.CateVO">
+
+	select * from baby_pcate order by catecode
+
+</select>
   
   </mapper>
