@@ -18,6 +18,7 @@ import com.baby.model.PageDTO;
 import com.baby.model.ProductVO;
 import com.baby.service.AdminService;
 import com.baby.service.BrandService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -42,8 +43,25 @@ public class AdminController {
 
 	// 상품 관리 페이지 접속
 	@GetMapping("productManage")
-	public void productManageGET() throws Exception {
+	public void productManageGET(Criteria cri, Model model) throws Exception {
+		
 		logger.info("상품 관리 페이지 접속");
+		
+		/*상품 리스트 데이터*/
+		List list = adminService.productGetList(cri);
+		
+		if(!list.isEmpty()) {
+			model.addAttribute("list", list);
+		} else {
+			model.addAttribute("listCheck", "empty");
+			return;
+		}
+		
+		/* 페이지 인터페이스 데이터 */
+		model.addAttribute("pageMaker", new PageDTO(cri, adminService.productGetTotal(cri)));
+		
+		
+		
 	}
 
 	// 상품 등록 페이지 접속
@@ -174,5 +192,25 @@ public class AdminController {
 		logger.info("brandPopGET.....");
 
 	}
+	
+	/* 상품 조회 페이지*/
+	@GetMapping("/productDetail")
+	public void productGetInfoGET(int productId, Criteria cri, Model model) throws JsonProcessingException {
+		
+		logger.info("productDetail() :" + productId);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		/* 카테고리 리스트 데이터 */
+		model.addAttribute("cateList", mapper.writeValueAsString(adminService.cateList()));
+		
+		/*목록 페이지 조건 정보*/
+		model.addAttribute("cri", cri);
+		
+		/*조회 페이지 정보*/
+		model.addAttribute("productInfo", adminService.productGetDetail(productId));
+		
+	}
+	
 
 }

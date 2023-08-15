@@ -1,11 +1,14 @@
 package com.baby.mapper;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.baby.model.Criteria;
 import com.baby.model.ProductVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -38,12 +41,46 @@ public class AdminMapperTests {
 //		
 //	}
 	
-	/* 카테고리 리스트*/
+//	/* 카테고리 리스트*/
+//	@Test
+//	public void cateListTest() throws Exception{
+//		
+//		System.out.println("cateList()......" + mapper.cateList());
+//		
+//	}
+	
+	
+//	/* 상품 리스트 & 상품 총 갯수 */
+//	@Test
+//	public void productGetListTest() {
+//		
+//		Criteria cri = new Criteria();
+//		
+//		/* 검색조건 */
+//		cri.setKeyword("유모");
+//		
+//		/* 검색 리스트 */
+//		List list = mapper.productGetList(cri);
+//		for(int i = 0; i < list.size(); i++) {
+//			System.out.println("result......." + i + " : " + list.get(i));
+//		}
+//		
+//		/* 상품 총 갯수 */
+//		int result = mapper.productGetTotal(cri);
+//		System.out.println("resutl.........." + result);
+//		
+//		
+//	}
+	
+	/* 상품 조회 페이지*/
 	@Test
-	public void cateListTest() throws Exception{
+	public void productGetDetailTest() {
 		
-		System.out.println("cateList()......" + mapper.cateList());
+		int productId = 5;
 		
+		ProductVO result = mapper.productGetDetail(productId);
+		
+		System.out.println("상품 조회 데이터 : " + result);
 	}
 
 }
