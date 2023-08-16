@@ -32,7 +32,6 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
-	
 
 	// 관리자 메인 페이지 이동
 	@GetMapping("main")
@@ -44,43 +43,41 @@ public class AdminController {
 	// 상품 관리 페이지 접속
 	@GetMapping("productManage")
 	public void productManageGET(Criteria cri, Model model) throws Exception {
-		
+
 		logger.info("상품 관리 페이지 접속");
-		
-		/*상품 리스트 데이터*/
+
+		/* 상품 리스트 데이터 */
 		List list = adminService.productGetList(cri);
-		
-		if(!list.isEmpty()) {
+
+		if (!list.isEmpty()) {
 			model.addAttribute("list", list);
 		} else {
 			model.addAttribute("listCheck", "empty");
 			return;
 		}
-		
+
 		/* 페이지 인터페이스 데이터 */
 		model.addAttribute("pageMaker", new PageDTO(cri, adminService.productGetTotal(cri)));
-		
-		
-		
+
 	}
 
 	// 상품 등록 페이지 접속
 	@GetMapping("productEnroll")
 	public void productEnrollGET(Model model) throws Exception {
-		
+
 		logger.info("상품 등록 페이지 접속");
-		
+
 		ObjectMapper objm = new ObjectMapper();
-		
+
 		List list = adminService.cateList();
-		
+
 		String cateList = objm.writeValueAsString(list);
-		
+
 		model.addAttribute("cateList", cateList);
-		
+
 		logger.info("변경 전.........." + list);
 		logger.info("변경 후.........." + cateList);
-		
+
 	}
 
 	// 브랜드 등록 페이지 접속
@@ -172,9 +169,9 @@ public class AdminController {
 	/* 브랜드 검색 팝업창 */
 	@GetMapping("/brandPop")
 	public void brandPopGET(Criteria cri, Model model) throws Exception {
-		
+
 		logger.info("brandPopGET.....");
-		
+
 		cri.setAmount(5);
 
 		/* 게시물 출력 데이터 */
@@ -192,25 +189,24 @@ public class AdminController {
 		logger.info("brandPopGET.....");
 
 	}
-	
-	/* 상품 조회 페이지*/
+
+	/* 상품 조회 페이지 */
 	@GetMapping("/productDetail")
 	public void productGetInfoGET(int productId, Criteria cri, Model model) throws JsonProcessingException {
-		
+
 		logger.info("productDetail() :" + productId);
-		
+
 		ObjectMapper mapper = new ObjectMapper();
-		
+
 		/* 카테고리 리스트 데이터 */
 		model.addAttribute("cateList", mapper.writeValueAsString(adminService.cateList()));
-		
-		/*목록 페이지 조건 정보*/
+
+		/* 목록 페이지 조건 정보 */
 		model.addAttribute("cri", cri);
-		
-		/*조회 페이지 정보*/
+
+		/* 조회 페이지 정보 */
 		model.addAttribute("productInfo", adminService.productGetDetail(productId));
-		
+
 	}
-	
 
 }
