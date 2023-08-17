@@ -86,6 +86,7 @@
 				<div class="btn_section">
 					<button id="cancelBtn" class="btn">취소</button>
 					<button id="modifyBtn" class="btn modify_btn">수 정</button>
+					<button id="deleteBtn" class="btn delete_btn">삭 제</button>
 				</div>
 			</form>
 		</div>
@@ -113,6 +114,16 @@
 			moveForm.attr("action", "/admin/brandDetail");
 			moveForm.submit();
 
+		});
+		
+		/* 삭제 버튼 */
+		$("#deleteBtn").on("click", function(e){
+			e.preventDefault();
+			moveForm.find("input").remove();
+			moveForm.append('<input type="hidden" name="brandId" value="${brandInfo.brandId}">');
+			moveForm.attr("action", "/admin/brandDelete");
+			moveForm.attr("method", "post");
+			moveForm.submit();
 		});
 
 		/*브랜드 수정 버튼 작동 및 유효성 검사*/

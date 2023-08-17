@@ -71,5 +71,14 @@
   	delete from baby_product where productId = #{productId}
   
   </delete>
+
+<!-- 브랜드정보 삭제 -->
+  <delete id="brandDelete">
+  
+  	delete from baby_brand where brandId = #{brandId}
+  
+  </delete>  
+  
+  
   
   </mapper>

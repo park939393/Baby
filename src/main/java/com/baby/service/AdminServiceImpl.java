@@ -67,12 +67,22 @@ public class AdminServiceImpl implements AdminService{
 		
 		return adminMapper.productModify(vo);
 	}
+	/* 상품 정보 삭제 */
 	@Override
 	public int productDelete(int productId) {
 		
 		log.info("(service)productDelete....");
 		
 		return adminMapper.productDelete(productId);
+	}
+	
+	/* 브랜드 정보 삭제 */
+	@Override
+	public int brandDelete(int brandId) {
+		
+		log.info("brandDelete..........");
+		
+		return adminMapper.brandDelete(brandId);
 	}
 
 }

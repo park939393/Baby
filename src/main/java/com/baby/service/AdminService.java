@@ -29,6 +29,9 @@ public interface AdminService {
 	/* 상품 정보 삭제*/
 	public int productDelete(int productId);
 	
+	/* 브랜드 정보 삭제*/
+	public int brandDelete(int brandId);
+	
 	
 	
 
