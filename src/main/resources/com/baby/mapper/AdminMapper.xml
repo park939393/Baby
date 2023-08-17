@@ -56,5 +56,20 @@
   
   </select>
   
+  <!-- 상품 정보 수정 -->
+	<update id="productModify">
+		
+		update baby_product set productName = #{productName}, brandId = #{brandId}, releaseDate = #{releaseDate}, company = #{company}, cateCode = ${cateCode}, 
+		productPrice = #{productPrice}, productStock = #{productStock}, productDiscount = #{productDiscount}, productIntro = #{productIntro}, productContents = #{productContents}, updateDate = now()
+		where productId = ${productId}
+		
+	</update>
+	
+<!-- 상품정보 삭제 -->
+  <delete id="productDelete">
+  
+  	delete from baby_product where productId = #{productId}
+  
+  </delete>
   
   </mapper>

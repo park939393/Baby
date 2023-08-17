@@ -191,7 +191,7 @@ public class AdminController {
 	}
 
 	/* 상품 조회 페이지 */
-	@GetMapping("/productDetail")
+	@GetMapping({"/productDetail", "/productModify"})
 	public void productGetInfoGET(int productId, Criteria cri, Model model) throws JsonProcessingException {
 
 		logger.info("productDetail() :" + productId);
@@ -207,6 +207,33 @@ public class AdminController {
 		/* 조회 페이지 정보 */
 		model.addAttribute("productInfo", adminService.productGetDetail(productId));
 
+	}
+	
+	/* 상품 정보 수정 */
+	@PostMapping("/productModify")
+	public String productModifyPOST(ProductVO vo, RedirectAttributes rttr) {
+		
+		logger.info("productModifyPOST.........." + vo);
+		
+		int result = adminService.productModify(vo);
+		
+		rttr.addFlashAttribute("modify_result", result);
+		
+		return "redirect:/admin/productManage";		
+		
+	}
+	
+	/*상품 정보 삭제*/
+	@PostMapping("/productDelete")
+	public String productDeletePOST(int productId, RedirectAttributes rttr) {
+		
+		logger.info("productDeletePOST..........");
+		
+		int result = adminService.productDelete(productId);
+		
+		rttr.addFlashAttribute("delete_result", result);
+		
+		return "redirect:/admin/productManage";
 	}
 
 }
