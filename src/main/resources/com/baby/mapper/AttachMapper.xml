@@ -1,0 +1,13 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.baby.mapper.AttachMapper">
+  
+  <select id="getAttachList" resultType="com.baby.model.AttachImageVO">
+	
+		select * from baby_image where productId = #{productId}
+	
+	</select>
+
+
+  </mapper>

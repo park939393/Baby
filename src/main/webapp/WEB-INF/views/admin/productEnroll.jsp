@@ -32,8 +32,8 @@
 						<label>상품 제목</label>
 					</div>
 					<div class="form_section_content">
-						<input name="productName">
-						<span class="ck_warn productName_warn">상품 이름을 입력해주세요.</span>
+						<input name="productName"> <span
+							class="ck_warn productName_warn">상품 이름을 입력해주세요.</span>
 					</div>
 				</div>
 				<div class="form_section">
@@ -61,8 +61,8 @@
 						<label>판매처</label>
 					</div>
 					<div class="form_section_content">
-						<input name="company">
-						<span class="ck_warn company_warn">판매처를 입력해주세요.</span>
+						<input name="company"> <span class="ck_warn company_warn">판매처를
+							입력해주세요.</span>
 					</div>
 				</div>
 				<div class="form_section">
@@ -85,7 +85,7 @@
 								<option selected value="none">선택</option>
 							</select>
 						</div>
-						<span class="ck_warn cateCode_warn">카테고리를 선택해주세요.</span> 
+						<span class="ck_warn cateCode_warn">카테고리를 선택해주세요.</span>
 					</div>
 				</div>
 				<div class="form_section">
@@ -93,8 +93,8 @@
 						<label>상품 가격</label>
 					</div>
 					<div class="form_section_content">
-						<input name="productPrice" value="0">
-						<span class="ck_warn productPrice_warn">상품 가격을 입력해주세요.</span>
+						<input name="productPrice" value="0"> <span
+							class="ck_warn productPrice_warn">상품 가격을 입력해주세요.</span>
 					</div>
 				</div>
 				<div class="form_section">
@@ -102,8 +102,8 @@
 						<label>상품 재고</label>
 					</div>
 					<div class="form_section_content">
-						<input name="productStock" value="0">
-						<span class="ck_warn productStock_warn">상품 재고를 입력해주세요.</span>
+						<input name="productStock" value="0"> <span
+							class="ck_warn productStock_warn">상품 재고를 입력해주세요.</span>
 					</div>
 				</div>
 				<div class="form_section">
@@ -111,11 +111,11 @@
 						<label>상품 할인율</label>
 					</div>
 					<div class="form_section_content">
-						<input id="discount_interface" maxlength="2" value="0">
-						<input name="productDiscount" type="hidden" value="0">
-						<span class="step_val">할인 가격 : <span class="span_discount"></span></span>
+						<input id="discount_interface" maxlength="2" value="0"> <input
+							name="productDiscount" type="hidden" value="0"> <span
+							class="step_val">할인 가격 : <span class="span_discount"></span></span>
 						<span class="ck_warn productDiscount_warn">1~99 숫자를 입력해주세요.</span>
-					
+
 					</div>
 				</div>
 				<div class="form_section">
@@ -137,14 +137,20 @@
 					</div>
 				</div>
 				<div class="form_section">
-                    			<div class="form_section_title">
-                    				<label>상품 이미지</label>
-                    			</div>
-                    			<div class="form_section_content">
-                    			<input type="file" id ="fileItem" name='uploadFile' style="height: 30px;">
-									
-                    			</div>
-                    		</div>  
+					<div class="form_section_title">
+						<label>상품 이미지</label>
+					</div>
+					<div class="form_section_content">
+						<input type="file" id="fileItem" name='uploadFile'
+							style="height: 30px;">
+						<div id="uploadResult">
+							<!-- 							<div id="result_card"> -->
+							<!-- 								<div class="imgDeleteBtn">x</div> -->
+							<!-- 								<img src="/resources/img/Logo.png"> -->
+							<!-- 							</div> -->
+						</div>
+					</div>
+				</div>
 			</form>
 			<div class="btn_section">
 				<button id="cancelBtn" class="btn">취 소</button>
@@ -473,6 +479,12 @@ $('.brandId_btn').on("click",function(e){
 	/* 이미지 업로드 */
 	$("input[type='file']").on("change", function(e){
 		
+		/*이미지 존재시 삭제*/
+		if($(".imgDeleteBtn").length > 0){
+			
+			deleteFile();
+		}
+		
 		let formData = new FormData();
 		let fileInput = $('input[name="uploadFile"]');
 		let fileList = fileInput[0].files;
@@ -486,12 +498,19 @@ $('.brandId_btn').on("click",function(e){
 		
 		$.ajax({
 			url: '/admin/uploadAjaxAction',
-			processData : false,
-			contentType : false,
-			data : formData,
-			type : 'POST',
-			dataType : 'json'
-		});
+	    	processData : false,
+	    	contentType : false,
+	    	data : formData,
+	    	type : 'POST',
+	    	dataType : 'json',
+	    	success : function(result){
+	    		console.log(result);
+	    		showUploadImage(result);
+	    	},
+	    	error : function(result){
+	    			alert("이미지 파일이 아닙니다.");
+	    	}
+		});	
 
 	});
 	
@@ -514,10 +533,66 @@ $('.brandId_btn').on("click",function(e){
 		return true;
 	}
 	
+	/* 이미지 출력 */
+	function showUploadImage(uploadResultArr){
+		
+		/* 전달받은 데이터 검증 */
+		if(!uploadResultArr || uploadResultArr.length == 0){return}
+		
+		let uploadResult = $("#uploadResult");
+		
+		let obj = uploadResultArr[0];
+		
+		let str = "";
+		
+		let fileCallPath = encodeURIComponent(obj.uploadPath.replace(/\\/g, '/') + "/s_" + obj.uuid + "_" + obj.fileName);
+		
+		str += "<div id='result_card'>";
+		str += "<img src='/display?fileName=" + fileCallPath +"'>";
+		str += "<div class='imgDeleteBtn' data-file='" + fileCallPath + "'>x</div>";
+		str += "<input type='hidden' name='imageList[0].fileName' value='"+ obj.fileName +"'>";
+		str += "<input type='hidden' name='imageList[0].uuid' value='"+ obj.uuid +"'>";
+		str += "<input type='hidden' name='imageList[0].uploadPath' value='"+ obj.uploadPath +"'>";
+		str += "</div>";
+		
+		uploadResult.append(str);
+		
+	}
 	
-
-
-
+	/* 파일 삭제 메서드 */
+	function deleteFile(){
+		
+		
+		let targetFile = $(".imgDeleteBtn").data("file");
+		
+		let targetDiv = $("#result_card");
+		
+		$.ajax({
+			url: '/admin/deleteFile',
+			data : {fileName : targetFile},
+			dataType : 'text',
+			type : 'POST',
+			success : function(result){
+				console.log(result);
+				
+				targetDiv.remove();
+				$("input[type='file']").val("");
+				
+			},
+			error : function(result){
+				console.log(result);
+				
+				alert("파일을 삭제하지 못하였습니다.")
+			}
+		});
+	}
+	
+	/* 이미지 삭제 버튼 동작 */
+	$("#uploadResult").on("click", ".imgDeleteBtn", function(e){
+		
+		deleteFile();
+		
+	});
 
 
 </script>

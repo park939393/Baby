@@ -295,10 +295,42 @@
 				if(targetCate2.cateParent == obj.value){
 					$(obj).attr("selected", "selected");
 				}
-			});				
+			});	
 			
+			
+			/* 이미지 정보 호출 */
+			let productId = '<c:out value="${productInfo.productId}"/>';
+			let uploadResult = $("#uploadResult");			
+			
+			$.getJSON("/getAttachList", {productId : productId}, function(arr){	
 				
-			
+				if(arr.length === 0){		
+					
+					let str = "";
+					str += "<div id='result_card'>";
+					str += "<img src='/resources/img/productNoImage.png'>";
+					str += "</div>";
+					
+					uploadResult.html(str);	
+					
+					return;
+				}	
+				
+				
+				let str = "";
+				let obj = arr[0];	
+				
+				let fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+				str += "<div id='result_card'";
+				str += "data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "'";
+				str += ">";
+				str += "<img src='/display?fileName=" + fileCallPath +"'>";
+				str += "</div>";		
+				
+				uploadResult.html(str);
+				
+				
+			});	
 			
 		}); // $(document).ready
 	

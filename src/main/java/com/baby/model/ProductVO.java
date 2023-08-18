@@ -1,6 +1,7 @@
 package com.baby.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class ProductVO {
 	
@@ -48,6 +49,10 @@ public class ProductVO {
 	
 	/* 수정 날짜*/
 	private Date updateDate;
+	
+	/* 이미지 정보 */
+	private List<AttachImageVO> imageList;
+	
 
 	public int getProductId() {
 		return productId;
@@ -169,14 +174,25 @@ public class ProductVO {
 		this.updateDate = updateDate;
 	}
 
+	public List<AttachImageVO> getImageList() {
+		return imageList;
+	}
+
+	public void setImageList(List<AttachImageVO> imageList) {
+		this.imageList = imageList;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductVO [productId=" + productId + ", productName=" + productName + ", brandId=" + brandId
 				+ ", brandName=" + brandName + ", releaseDate=" + releaseDate + ", company=" + company + ", cateCode="
 				+ cateCode + ", cateName=" + cateName + ", productPrice=" + productPrice + ", productStock="
 				+ productStock + ", productDiscount=" + productDiscount + ", productIntro=" + productIntro
-				+ ", productContents=" + productContents + ", regDate=" + regDate + ", updateDate=" + updateDate + "]";
+				+ ", productContents=" + productContents + ", regDate=" + regDate + ", updateDate=" + updateDate
+				+ ", imageList=" + imageList + "]";
 	}
+
+
 
 	
 

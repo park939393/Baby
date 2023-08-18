@@ -2,83 +2,116 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="com.baby.mapper.AdminMapper">
-  
-<!--   상품 등록 -->
-<insert id="productEnroll">
+<mapper namespace="com.baby.mapper.AdminMapper">
 
-	insert into baby_product(productName, brandId, releaseDate, company, cateCode, productPrice, productStock, productDiscount, productIntro, productContents)
-	values(#{productName},#{brandId},#{releaseDate},#{company},#{cateCode},#{productPrice},#{productStock},#{productDiscount},#{productIntro},#{productContents})
+	<!-- 상품 등록 -->
+	<insert id="productEnroll">
 
-</insert>
+		<selectKey resultType="int" keyProperty="productId"
+			order="AFTER">
 
-<!-- 카테고리 리스트 -->
-<select id="cateList" resultType="com.baby.model.CateVO">
+			SELECT LAST_INSERT_ID()
 
-	select * from baby_pcate order by catecode
+		</selectKey>
 
-</select>
+		insert into baby_product(productName, brandId, releaseDate, company,
+		cateCode, productPrice, productStock, productDiscount, productIntro,
+		productContents)
+		values(#{productName},#{brandId},#{releaseDate},#{company},#{cateCode},#{productPrice},#{productStock},#{productDiscount},#{productIntro},#{productContents})
 
-<!-- 상품 리스트 -->
-<select id="productGetList" resultType="com.baby.model.ProductVO">
+	</insert>
 
-	select productId, productName, b.brandName, c.cateName, productStock, a.regDate
-	from baby_product a
-	left outer join baby_brand b on a.brandId = b.brandId
-	left outer join baby_pcate c on a.cateCode = c.cateCode
-	<if test="keyword != null">
+	<!-- 카테고리 리스트 -->
+	<select id="cateList" resultType="com.baby.model.CateVO">
+
+		select * from baby_pcate order by catecode
+
+	</select>
+
+	<!-- 상품 리스트 -->
+	<select id="productGetList"
+		resultType="com.baby.model.ProductVO">
+
+		select productId, productName, b.brandName, c.cateName, productStock,
+		a.regDate
+		from baby_product a
+		left outer join baby_brand b on a.brandId = b.brandId
+		left outer join baby_pcate c on a.cateCode = c.cateCode
+		<if test="keyword != null">
 			where (productName like concat('%', #{keyword}, '%'))
-	</if>
-	order by productId desc
-	limit #{skip}, #{amount}
+		</if>
+		order by productId desc
+		limit #{skip}, #{amount}
 
-</select>
+	</select>
 
-<!-- 상품 총 갯수 -->
-  	<select id="productGetTotal" resultType="int">
-  	
-  		select count(*) from baby_product
-  		
-  		<if test="keyword != null">
-  		
-  			where productName like concat('%' , #{keyword}, '%')
-  		
-  		</if>
-  	
-  	</select>
-  	
-<!--  상품 조회 페이지 	 -->
-  <select id="productGetDetail" resultType="com.baby.model.ProductVO">
-  
-  select productId, productName, (select brandName from baby_brand where brandId = baby_product.brandId) brandName,
-  		brandId, company, releaseDate, cateCode, productPrice, productStock, productDiscount, productIntro, productContents, regDate, updateDate
-  		from baby_product where productId = #{productId}
-  
-  </select>
-  
-  <!-- 상품 정보 수정 -->
+	<!-- 상품 총 갯수 -->
+	<select id="productGetTotal" resultType="int">
+
+		select count(*) from baby_product
+
+		<if test="keyword != null">
+
+			where productName like concat('%' , #{keyword}, '%')
+
+		</if>
+
+	</select>
+
+	<!-- 상품 조회 페이지 -->
+	<select id="productGetDetail"
+		resultType="com.baby.model.ProductVO">
+
+		select productId, productName, (select brandName from baby_brand where
+		brandId = baby_product.brandId) brandName,
+		brandId, company, releaseDate, cateCode, productPrice, productStock,
+		productDiscount, productIntro, productContents, regDate, updateDate
+		from baby_product where productId = #{productId}
+
+	</select>
+
+	<!-- 상품 정보 수정 -->
 	<update id="productModify">
-		
-		update baby_product set productName = #{productName}, brandId = #{brandId}, releaseDate = #{releaseDate}, company = #{company}, cateCode = ${cateCode}, 
-		productPrice = #{productPrice}, productStock = #{productStock}, productDiscount = #{productDiscount}, productIntro = #{productIntro}, productContents = #{productContents}, updateDate = now()
-		where productId = ${productId}
-		
-	</update>
-	
-<!-- 상품정보 삭제 -->
-  <delete id="productDelete">
-  
-  	delete from baby_product where productId = #{productId}
-  
-  </delete>
 
-<!-- 브랜드정보 삭제 -->
-  <delete id="brandDelete">
-  
-  	delete from baby_brand where brandId = #{brandId}
-  
-  </delete>  
-  
-  
-  
-  </mapper>
+		update baby_product set productName = #{productName}, brandId = #{brandId},
+		releaseDate = #{releaseDate}, company = #{company}, cateCode =
+		${cateCode},
+		productPrice = #{productPrice}, productStock = #{productStock}, productDiscount =
+		#{productDiscount}, productIntro = #{productIntro}, productContents =
+		#{productContents}, updateDate = now()
+		where productId = ${productId}
+
+	</update>
+
+	<!-- 상품정보 삭제 -->
+	<delete id="productDelete">
+
+		delete from baby_product where productId = #{productId}
+
+	</delete>
+
+	<!-- 브랜드정보 삭제 -->
+	<delete id="brandDelete">
+
+		delete from baby_brand where brandId = #{brandId}
+
+	</delete>
+
+	<!--이미지 등록 -->
+	<insert id="imageEnroll">
+
+		insert into baby_image(productId, fileName, uploadPath, uuid) values
+		(#{productId}, #{fileName}, #{uploadPath}, #{uuid})
+
+	</insert>
+
+	<!-- 지정 상품 이미지 전체 삭제 -->
+	<delete id="deleteImageAll">
+
+		delete FROM baby_image where productId = #{productId}
+
+	</delete>
+
+
+
+</mapper>

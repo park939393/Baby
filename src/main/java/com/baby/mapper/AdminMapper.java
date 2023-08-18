@@ -2,6 +2,7 @@ package com.baby.mapper;
 
 import java.util.List;
 
+import com.baby.model.AttachImageVO;
 import com.baby.model.CateVO;
 import com.baby.model.Criteria;
 import com.baby.model.ProductVO;
@@ -31,6 +32,12 @@ public interface AdminMapper {
 	
 	/* 브랜드 정보 삭제*/
 	public int brandDelete(int brandId);
+	
+	/*이미지 등록*/
+	public void imageEnroll(AttachImageVO vo);
+	
+	/* 지정 상품 이미지 전체 삭제 */
+	public void deleteImageAll(int productId);
 
 
 }
