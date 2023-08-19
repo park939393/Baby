@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baby.mapper.AdminMapper;
+import com.baby.model.AttachImageVO;
 import com.baby.model.CateVO;
 import com.baby.model.Criteria;
 import com.baby.model.ProductVO;
@@ -80,17 +81,17 @@ public class AdminServiceImpl implements AdminService {
 	public int productModify(ProductVO vo) {
 
 		int result = adminMapper.productModify(vo);
-		
-		if(result == 1 && vo.getImageList() != null && vo.getImageList().size() > 0) {
-			
+
+		if (result == 1 && vo.getImageList() != null && vo.getImageList().size() > 0) {
+
 			adminMapper.deleteImageAll(vo.getProductId());
-			
-			vo.getImageList().forEach(attach ->{
-				
+
+			vo.getImageList().forEach(attach -> {
+
 				attach.setProductId(vo.getProductId());
 				adminMapper.imageEnroll(attach);
 			});
-			
+
 		}
 
 		return result;
@@ -98,9 +99,12 @@ public class AdminServiceImpl implements AdminService {
 
 	/* 상품 정보 삭제 */
 	@Override
+	@Transactional
 	public int productDelete(int productId) {
 
 		log.info("(service)productDelete....");
+		
+		adminMapper.deleteImageAll(productId);
 
 		return adminMapper.productDelete(productId);
 	}
@@ -112,6 +116,15 @@ public class AdminServiceImpl implements AdminService {
 		log.info("brandDelete..........");
 
 		return adminMapper.brandDelete(brandId);
+	}
+
+	/* 지정 상품 이미지 정보 얻기 */
+	@Override
+	public List<AttachImageVO> getAttachInfo(int productId) {
+		
+		log.info("getAttachInfo........");
+
+		return adminMapper.getAttachInfo(productId);
 	}
 
 }

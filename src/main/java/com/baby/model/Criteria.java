@@ -1,5 +1,7 @@
 package com.baby.model;
 
+import java.util.Arrays;
+
 public class Criteria {
 	
 	/*현재 페이지 번호*/
@@ -16,6 +18,16 @@ public class Criteria {
 	
 	/*검색 키워드*/
 	private String keyword;
+	
+	/*브랜드 리스트*/
+	private String[] brandArr;
+	
+	/* 카테고리 코드*/
+	private String cateCode;
+	/* 상품 번호 */
+	private int productId;
+	
+	
 	
 	/* Criteria 생성자 */
 	public Criteria(int pageNum, int amount) {
@@ -76,12 +88,38 @@ public class Criteria {
 		this.keyword = keyword;
 	}
 
+	public String[] getBrandArr() {
+		return brandArr;
+	}
+
+	public void setBrandArr(String[] brandArr) {
+		this.brandArr = brandArr;
+	}
+
+	public String getCateCode() {
+		return cateCode;
+	}
+
+	public void setCateCode(String cateCode) {
+		this.cateCode = cateCode;
+	}
+
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+
 	@Override
 	public String toString() {
 		return "Criteria [pageNum=" + pageNum + ", amount=" + amount + ", skip=" + skip + ", type=" + type
-				+ ", keyword=" + keyword + "]";
+				+ ", keyword=" + keyword + ", brandArr=" + Arrays.toString(brandArr) + ", cateCode=" + cateCode
+				+ ", productId=" + productId + "]";
 	}
 
 	
+
 
 }

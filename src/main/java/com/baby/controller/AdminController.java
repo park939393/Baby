@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -245,6 +247,28 @@ public class AdminController {
 	public String productDeletePOST(int productId, RedirectAttributes rttr) {
 
 		logger.info("productDeletePOST..........");
+
+		List<AttachImageVO> fileList = adminService.getAttachInfo(productId);
+
+		if (fileList != null) {
+			List<Path> pathList = new ArrayList();
+
+			fileList.forEach(vo -> {
+
+				// 원본 이미지
+				Path path = Paths.get("C:\\upload", vo.getUploadPath(), vo.getUuid() + "_" + vo.getFileName());
+				pathList.add(path);
+
+				// 섬네일 이미지
+				path = Paths.get("C:\\upload", vo.getUploadPath(), "s_" + vo.getUuid() + "_" + vo.getFileName());
+				pathList.add(path);
+
+			});
+
+			pathList.forEach(path -> {
+				path.toFile().delete();
+			});
+		}
 
 		int result = adminService.productDelete(productId);
 

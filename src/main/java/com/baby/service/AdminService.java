@@ -2,6 +2,7 @@ package com.baby.service;
 
 import java.util.List;
 
+import com.baby.model.AttachImageVO;
 import com.baby.model.CateVO;
 import com.baby.model.Criteria;
 import com.baby.model.ProductVO;
@@ -31,6 +32,9 @@ public interface AdminService {
 	
 	/* 브랜드 정보 삭제*/
 	public int brandDelete(int brandId);
+	
+	/* 지정 상품 이미지 정보 얻기 */
+	public List<AttachImageVO> getAttachInfo(int productId);
 	
 	
 	
