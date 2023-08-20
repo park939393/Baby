@@ -141,7 +141,11 @@
 									</td>
 									<td class="detail">
 										<div class="category">[${list.cateName}]</div>
-										<div class="title">${list.productName}</div>
+										<div class="title">
+										<a href="/productDetail/${list.productId}">
+										${list.productName}
+										</a>
+										</div>
 										<div class="brand">${list.brandName}|${list.company}|
 											${list.releaseDate}</div>
 									</td>

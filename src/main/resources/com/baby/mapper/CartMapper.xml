@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baby.mapper.CartMapper">
+
+<!-- 카트 추가 -->
+	<insert id="addCart">
+	
+		insert into baby_cart(memberId, productId, productCount)
+		values(#{memberId}, #{productId}, #{productCount}) 
+	
+	</insert>
+	
+	
+	<!-- 카트 삭제 -->
+	<delete id="deleteCart">
+	
+		delete from baby_cart where cartId = #{cartId}
+	
+	</delete>
+	
+	<!-- 카트 수량 수정 -->
+	<update id="modifyCount">
+	
+		update baby_cart set productCount=#{productCount} where cartId = #{cartId}
+	
+	</update>
+	
+	
+	<!-- 카트 목록 -->
+	<select id="getCart" resultType="com.baby.model.CartDTO">
+	
+		select a.cartId, a.memberId, a.productId, a.productCount, b.productName, b.productPrice, b.productDiscount
+		from baby_cart a left outer join baby_product b on a.productId = b.productId
+		where memberId = #{memberId}	
+	
+	</select>
+	
+	<!-- 카트 확인 -->
+	<select id="checkCart" resultType="com.baby.model.CartDTO">
+	
+		select * from baby_cart 
+		where memberId = #{memberId} and productId = #{productId}
+	
+	</select>
+
+
+</mapper>

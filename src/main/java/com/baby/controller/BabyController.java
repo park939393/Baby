@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -98,18 +99,27 @@ public class BabyController {
 
 		model.addAttribute("pageMaker", new PageDTO(cri, productService.productGetTotal(cri)));
 
-		model.addAttribute("filter_info", productService.getCateInfoList(cri));
-
 		String[] typeArr = cri.getType().split("");
 
 		for (String s : typeArr) {
 			if (s.equals("T") || s.equals("B")) {
-				model.addAttribute("filter_info", productService.getCateInfoList(cri));
+			model.addAttribute("filter_info", productService.getCateInfoList(cri));
 			}
 		}
 
 		return "search";
 
+	}
+	
+	/* 상품 상세 */
+	@GetMapping("/productDetail/{productId}")
+	public String productDetailGET(@PathVariable("productId")int productId, Model model) {
+		
+		logger.info("productDetailGET()..........");
+		
+		model.addAttribute("productInfo", productService.getProductInfo(productId));
+		
+		return "/productDetail";
 	}
 
 }
