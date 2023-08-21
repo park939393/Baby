@@ -151,5 +151,21 @@
 			where productid = ${productId}	
 	
 	</select>
+	
+	<select id="getProductIdName" resultType="com.baby.model.ProductVO">
+	
+		select productId, productName from baby_product 
+		where productId = #{productId}
+	
+	
+	</select>
+	
+	<select id="likeSelect" resultType="com.baby.model.SelectDTO">
+	
+	select productId, productName, ratingAvg, (select cateName from baby_pcate where baby_product.cateCode = baby_pcate.cateCode) as cateName
+	from baby_product
+	order by ratingAvg desc limit 8		
+	
+	</select>
 
 </mapper>

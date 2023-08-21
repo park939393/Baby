@@ -24,8 +24,10 @@ import com.baby.model.AttachImageVO;
 import com.baby.model.Criteria;
 import com.baby.model.PageDTO;
 import com.baby.model.ProductVO;
+import com.baby.model.ReviewDTO;
 import com.baby.service.AttachService;
 import com.baby.service.ProductService;
+import com.baby.service.ReviewService;
 
 @Controller
 public class BabyController {
@@ -37,6 +39,9 @@ public class BabyController {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private ReviewService reviewService;
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public void mainPageGET(Model model) {
@@ -44,6 +49,7 @@ public class BabyController {
 
 		model.addAttribute("cate1", productService.getCateCode1());
 		model.addAttribute("cate2", productService.getCateCode2());
+		model.addAttribute("ls", productService.likeSelect());
 
 	}
 
@@ -121,5 +127,28 @@ public class BabyController {
 		
 		return "/productDetail";
 	}
+	
+	/* 리뷰 쓰기 */
+	@GetMapping("/reviewEnroll/{memberId}")
+	public String reviewEnrollWindowGET(@PathVariable("memberId")String memberId, int productId, Model model) {
+		ProductVO product = productService.getProductIdName(productId);
+		model.addAttribute("productInfo", product);
+		model.addAttribute("memberId", memberId);
+		
+		return "/reviewEnroll";
+	}
+	
+	/* 리뷰 수정 팝업창 */
+	@GetMapping("/reviewUpdate")
+	public String reviewUpdateWindowGET(ReviewDTO dto, Model model) {
+		ProductVO product = productService.getProductIdName(dto.getProductId());
+		model.addAttribute("productInfo", product);
+		model.addAttribute("reviewInfo", reviewService.getUpdateReview(dto.getReviewId()));
+		model.addAttribute("memberId", dto.getMemberId());
+		
+		return "/reviewUpdate";
+	}
+	
+	
 
 }

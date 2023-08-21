@@ -125,6 +125,30 @@
 		select * from baby_image where productId = #{productId}
 	
 	</select>
+	
+	<!-- 주문 리스트 -->
+	<select id="getOrderList" resultType="com.baby.model.OrderDTO">	
+			
+			select orderId, memberId, orderstate, orderdate
+		    from baby_order 
+		    <if test="keyword != null">
+		    	where memberId like concat('%',#{keyword}, '%')
+		    </if>
+		    order by orderdate desc
+		    limit #{skip}, #{amount}
+		    
+	</select>	
+	
+	<!-- 상품 총 개수 -->
+	<select id="getOrderTotal" resultType="int">
+	
+		select count(*) from baby_order
+		
+	    <if test="keyword != null">
+	    	where memberId like concat('%',#{keyword}, '%')
+	    </if>
+	
+	</select>
 
 
 </mapper>

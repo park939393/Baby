@@ -33,7 +33,7 @@
 
 						<li><a id="gnb_logout_button"> 로그아웃 </a></li>
 						<li>마이룸</li>
-						<li>장바구니</li>
+						<li><a href="/cart/${member.memberId}">장바구니</a></li>
 					</c:if>
 
 					<li>고객센터</li>
@@ -369,6 +369,18 @@
 		$("#filter_form input[name='type']").val(type);
 		$("#filter_form").submit();
 
+	});
+	/* gnb_area 로그아웃 버튼 작동 */
+	$("#gnb_logout_button").click(function() {
+		//alert("버튼 작동");
+		$.ajax({
+			type : "POST",
+			url : "/member/logout.do",
+			success : function(data) {
+				//alert("로그아웃 성공");
+				document.location.reload();
+			}
+		}); // ajax	
 	});
 </script>
 </html>
