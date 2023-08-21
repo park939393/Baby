@@ -10,7 +10,6 @@ import com.baby.mapper.AdminMapper;
 import com.baby.model.AttachImageVO;
 import com.baby.model.CateVO;
 import com.baby.model.Criteria;
-import com.baby.model.OrderDTO;
 import com.baby.model.ProductVO;
 
 import lombok.extern.log4j.Log4j;
@@ -126,18 +125,6 @@ public class AdminServiceImpl implements AdminService {
 		log.info("getAttachInfo........");
 
 		return adminMapper.getAttachInfo(productId);
-	}
-	
-	/* 주문 상품 리스트 */
-	@Override
-	public List<OrderDTO> getOrderList(Criteria cri) {
-		return adminMapper.getOrderList(cri);
-	}
-	
-	/* 주문 총 갯수 */
-	@Override
-	public int getOrderTotal(Criteria cri) {
-		return adminMapper.getOrderTotal(cri);
 	}
 
 }

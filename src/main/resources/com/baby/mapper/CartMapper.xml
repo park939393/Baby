@@ -44,12 +44,6 @@
 		where memberId = #{memberId} and productId = #{productId}
 	
 	</select>
-	
-	<delete id="deleteOrderCart">
-	
-		delete from baby_cart where memberId = #{memberId} and productId = #{productId}
-	
-	</delete>
 
 
 </mapper>

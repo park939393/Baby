@@ -149,7 +149,6 @@
 							style="height: 30px;">
 						<div id="uploadResult"></div>
 					</div>
-					
 				</div>
 
 				<input type="hidden" name='productId'
@@ -488,7 +487,7 @@
 		e.preventDefault();
 		let moveForm = $("#moveForm");
 		moveForm.find("input").remove();
-		moveForm.append('<input type="number" name="productId" value="${productInfo.productId}">');
+		moveForm.append('<input type="hidden" name="productId" value="${productInfo.productId}">');
 		moveForm.attr("action", "/admin/productDelete");
 		moveForm.attr("method", "post");
 		moveForm.submit();

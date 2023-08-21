@@ -459,19 +459,6 @@ $(".order_btn").on("click", function(){
 	$(".order_form").submit();
 	
 });
-
-/* gnb_area 로그아웃 버튼 작동 */
-$("#gnb_logout_button").click(function() {
-	//alert("버튼 작동");
-	$.ajax({
-		type : "POST",
-		url : "/member/logout.do",
-		success : function(data) {
-			//alert("로그아웃 성공");
-			document.location.reload();
-		}
-	}); // ajax	
-});
 	
 </script>
 </html>

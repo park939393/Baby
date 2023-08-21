@@ -14,7 +14,6 @@ import com.baby.model.CateFilterDTO;
 import com.baby.model.CateVO;
 import com.baby.model.Criteria;
 import com.baby.model.ProductVO;
-import com.baby.model.SelectDTO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -27,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private AttachMapper attachMapper;
-
+	
 	@Autowired
 	private AdminMapper adminMapper;
 
@@ -106,7 +105,7 @@ public class ProductServiceImpl implements ProductService {
 		for (String type : typeArr) {
 			if (type.equals("B")) {
 				BrandArr = productMapper.getBrandIdList(cri.getKeyword());
-				if (BrandArr.length == 0) {
+				if(BrandArr.length == 0) {
 					return filterInfoList;
 				}
 				cri.setBrandArr(BrandArr);
@@ -128,38 +127,14 @@ public class ProductServiceImpl implements ProductService {
 		return filterInfoList;
 	}
 
-	/* 상품 정보 */
+	/*상품 정보*/
 	@Override
 	public ProductVO getProductInfo(int productId) {
-
+		
 		ProductVO productInfo = productMapper.getProductInfo(productId);
-
 		productInfo.setImageList(adminMapper.getAttachInfo(productId));
-
+		
 		return productInfo;
-	}
-
-	@Override
-	public ProductVO getProductIdName(int productId) {
-
-		return productMapper.getProductIdName(productId);
-	}
-
-	@Override
-	public List<SelectDTO> likeSelect() {
-		List<SelectDTO> list = productMapper.likeSelect();
-
-		list.forEach(dto -> {
-
-			int productId = dto.getProductId();
-
-			List<AttachImageVO> imageList = attachMapper.getAttachList(productId);
-
-			dto.setImageList(imageList);
-
-		});
-
-		return list;
 	}
 
 }

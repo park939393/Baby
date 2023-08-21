@@ -33,13 +33,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.baby.model.AttachImageVO;
 import com.baby.model.BrandVO;
 import com.baby.model.Criteria;
-import com.baby.model.OrderCancelDTO;
-import com.baby.model.OrderDTO;
 import com.baby.model.PageDTO;
 import com.baby.model.ProductVO;
 import com.baby.service.AdminService;
 import com.baby.service.BrandService;
-import com.baby.service.OrderService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -54,9 +51,6 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
-	
-	@Autowired
-	private OrderService orderService;
 
 	// 관리자 메인 페이지 이동
 	@GetMapping("main")
@@ -444,30 +438,6 @@ public class AdminController {
 
 		}
 		return new ResponseEntity<String>("success", HttpStatus.OK);
-	}
-
-	/* 주문 현황 페이지 */
-	@GetMapping("/orderList")
-	public String orderListGET(Criteria cri, Model model) {
-		List<OrderDTO> list = adminService.getOrderList(cri);
-
-		if (!list.isEmpty()) {
-			model.addAttribute("list", list);
-			model.addAttribute("pageMaker", new PageDTO(cri, adminService.getOrderTotal(cri)));
-		} else {
-			model.addAttribute("listCheck", "empty");
-		}
-
-		return "/admin/orderList";
-	}
-	
-	/* 주문삭제 */
-	@PostMapping("/orderCancle")
-	public String orderCanclePOST(OrderCancelDTO dto) {
-		
-		orderService.orderCancle(dto);
-		
-		return "redirect:/admin/orderList?keyword=" + dto.getKeyword() + "&amount=" + dto.getAmount() + "&pageNum=" + dto.getPageNum();
 	}
 
 }

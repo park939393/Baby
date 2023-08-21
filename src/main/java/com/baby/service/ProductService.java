@@ -6,7 +6,6 @@ import com.baby.model.CateFilterDTO;
 import com.baby.model.CateVO;
 import com.baby.model.Criteria;
 import com.baby.model.ProductVO;
-import com.baby.model.SelectDTO;
 
 
 public interface ProductService {
@@ -30,10 +29,5 @@ public interface ProductService {
 	/* 상품 정보 */
 	public ProductVO getProductInfo(int productId);
 	
-	/* 상품 id 이름 */
-	public ProductVO getProductIdName(int productId);
-	
-	/* 평점순 상품 정보 */
-	public List<SelectDTO> likeSelect();
 
 }
