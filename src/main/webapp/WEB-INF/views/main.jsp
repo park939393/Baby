@@ -190,7 +190,7 @@
 					</div>
 					<div class="footer_right">
 						(주) BABY ROOM 대표이사 : OOO <br> 사업자등록번호 : ooo-oo-ooooo <br>
-						대표전화 : oooo-oooo(발신자 부담전화) <br> <br> COPYRIGHT(C) <strong>http://localhost:8080</strong>
+						대표전화 : oooo-oooo(발신자 부담전화) <br> <br> COPYRIGHT(C) <strong>https://github.com/park939393/Byby</strong>
 						ALL RIGHTS RESERVED.
 					</div>
 					<div class="clearfix"></div>
