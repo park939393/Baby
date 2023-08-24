@@ -38,6 +38,9 @@ public interface ProductMapper {
 	/* 상품 id 이름 */
 	public ProductVO getProductIdName(int productId);
 	
+	/* 신제품 상품 정보 */
+	public List<SelectDTO> newSelect();
+	
 	/* 평점순 상품 정보 */
 	public List<SelectDTO> likeSelect();
 

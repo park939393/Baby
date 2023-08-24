@@ -1,6 +1,10 @@
 package com.baby.mapper;
 
+import java.util.List;
+
+import com.baby.model.Criteria;
 import com.baby.model.MemberVO;
+import com.baby.model.OrderDTO;
 
 public interface MemberMapper {
 
@@ -15,5 +19,10 @@ public interface MemberMapper {
 	
 	// 주문자 주소 정보
 	public MemberVO getMemberInfo(String memberId);
+	
+	/* 주문 상품 리스트 */
+	public List<OrderDTO> getMyOrderList(String memberId);	
+	
+	
 	
 }

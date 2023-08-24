@@ -1,10 +1,14 @@
 package com.baby.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baby.mapper.MemberMapper;
+import com.baby.model.Criteria;
 import com.baby.model.MemberVO;
+import com.baby.model.OrderDTO;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -54,6 +58,23 @@ public class MemberServiceImpl implements MemberService{
 		return membermapper.getMemberInfo(memberId);
 		
 	}
+
+
+
+
+	@Override
+	public List<OrderDTO> getMyOrderList(String memberId) {
+		
+		return membermapper.getMyOrderList(memberId);
+	}
+
+
+
+
+	
+
+
+
 	
 	
 	

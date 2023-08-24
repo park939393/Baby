@@ -13,7 +13,7 @@
   src="https://code.jquery.com/jquery-3.4.1.js"
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
   crossorigin="anonymous"></script>
-  <script src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
   <style type="text/css">
 	#result_card img{
 		max-width: 100%;
@@ -140,7 +140,7 @@
                     		</div>        		
                     		<div class="form_section">
                     			<div class="form_section_title">
-                    				<label>상품 목차</label>
+                    				<label>상품 상세내용</label>
                     			</div>
                     			<div class="form_section_content bct">
                     				<textarea name="productContents" id="productContents_textarea" disabled>${productInfo.productContents}</textarea>
@@ -182,27 +182,25 @@
 			$("#discount_interface").attr("value", productDiscount);
 			
 			
-			/* 책 소개 */
-			ClassicEditor
-				.create(document.querySelector('#productIntro_textarea'))
-				.then(editor => {
-					console.log(editor);
-					editor.isReadOnly = true;
-				})
-				.catch(error=>{
-					console.error(error);
-				});
-				
-			/* 책 목차 */	
-			ClassicEditor
-			.create(document.querySelector('#productContents_textarea'))
-			.then(editor => {
-				console.log(editor);
-				editor.isReadOnly = true;
-			})
-			.catch(error=>{
-				console.error(error);
-			});		
+		
+			 
+			
+			/*상품 소개*/
+			CKEDITOR.replace('productIntro', {
+				filebrowserUploadUrl : '/admin/imageUpload.do',
+				height : 200,
+				readOnly: true
+			// Set the desired height value here
+			});
+			
+			/*상품 내용*/
+			CKEDITOR.replace('productContents', {
+				filebrowserUploadUrl : '/admin/imageUpload.do',
+				height : 500,
+				readOnly: true
+			// Set the desired height value here
+			});
+			
 			
 			
 			/* 카테고리 */

@@ -211,7 +211,7 @@
 						</li>
 						-->
 					</ul>
-${productInfo.productId}
+
 				</div>
 			
 			

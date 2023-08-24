@@ -33,6 +33,9 @@ public interface ProductService {
 	/* 상품 id 이름 */
 	public ProductVO getProductIdName(int productId);
 	
+	/* 신상품 상품 정보 */
+	public List<SelectDTO> newSelect();
+	
 	/* 평점순 상품 정보 */
 	public List<SelectDTO> likeSelect();
 

@@ -12,8 +12,9 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"
 	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+<!-- <script -->
+<!-- 	src="https://cdn.ckeditor.com/ckeditor5/37.0.1/classic/ckeditor.js"></script> -->
+<script src="//cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 </head>
@@ -120,22 +121,25 @@
 				</div>
 				<div class="form_section">
 					<div class="form_section_title">
-						<label>상품 소개</label>
+						<label>제품 소개</label>
 					</div>
 					<div class="form_section_content bit">
 						<textarea name="productIntro" id="productIntro_textarea"></textarea>
-						<span class="ck_warn productIntro_warn">상품 소개를 입력해주세요.</span>
+						<span class="ck_warn productIntro_warn">제품 소개를 입력해주세요.</span>
 					</div>
 				</div>
 				<div class="form_section">
 					<div class="form_section_title">
-						<label>상품 내용</label>
+						<label>제품 내용</label>
 					</div>
 					<div class="form_section_content bct">
 						<textarea name="productContents" id="productContents_textarea"></textarea>
-						<span class="ck_warn productContents_warn">상품 내용를 입력해주세요.</span>
+						<span class="ck_warn productContents_warn">제품 내용을 입력해주세요.</span>
 					</div>
+					
 				</div>
+				
+				
 				<div class="form_section">
 					<div class="form_section_title">
 						<label>상품 이미지</label>
@@ -297,20 +301,24 @@ $("#enrollBtn").on("click",function(e){
 
 /*위지윅 적용*/
  
-
-	/*상품 소개*/
-ClassicEditor
-		.create(document.querySelector('#productIntro_textarea'))
-		.catch(error=>{
-			 	console.error(error);
+		
+		/*상품 소개*/
+		CKEDITOR.replace('productIntro', {
+			filebrowserUploadUrl : '/admin/imageUpload.do',
+			height : 200
+		// Set the desired height value here
 		});
 		
-	/*상품 내용*/
-ClassicEditor
-		.create(document.querySelector('#productContents_textarea'))
-		.catch(error=>{
-			 	console.error(error);
+		/*상품 내용*/
+		CKEDITOR.replace('productContents', {
+			filebrowserUploadUrl : '/admin/imageUpload.do',
+			height : 500
+		// Set the desired height value here
 		});
+		
+
+	
+
 	
 /*캘린더 적용*/
 

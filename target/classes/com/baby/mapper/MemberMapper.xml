@@ -31,6 +31,19 @@
   		WHERE memberId = #{memberId}
   	
   	</select>
+  	
+  	<!-- My주문 리스트 -->
+	<select id="getMyOrderList" resultType="com.baby.model.OrderDTO">	
+			
+			select orderId, memberId, orderstate, orderdate
+		    from baby_order 
+		  	 WHERE memberId = #{memberId}
+		    order by orderdate desc
+		   
+		    
+	</select>	
+	
+
 
 
 

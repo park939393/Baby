@@ -41,6 +41,7 @@ public class HomeController {
 		model.addAttribute("cate1", productService.getCateCode1());
 		model.addAttribute("cate2", productService.getCateCode2());
 		model.addAttribute("ls", productService.likeSelect());
+		model.addAttribute("ns", productService.newSelect());
 		
 		return "main";
 	}

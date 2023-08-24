@@ -167,5 +167,13 @@
 	order by ratingAvg desc limit 8		
 	
 	</select>
+	
+	<select id="newSelect" resultType="com.baby.model.SelectDTO">
+	
+	select productId, productName, ratingAvg, (select cateName from baby_pcate where baby_product.cateCode = baby_pcate.cateCode) as cateName
+	from baby_product
+	order by productId desc limit 8		
+	
+	</select>
 
 </mapper>

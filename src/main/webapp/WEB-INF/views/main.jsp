@@ -35,7 +35,7 @@
 						</c:if>
 
 						<li><a id="gnb_logout_button"> 로그아웃 </a></li>
-						<li>마이룸</li>
+							<li><a href="/member/myPage/${member.memberId}">마이 페이지</a></li>
 						<li><a href="/cart/${member.memberId}">장바구니</a></li>
 					</c:if>
 
@@ -133,6 +133,34 @@
 						</div>
 					</div>
 				</div>
+				<div class="ls_wrap">
+				<div class="ls_div_subject">
+					최신 상품
+				</div>
+				<div class="ls_div">
+					<c:forEach items="${ns}" var="ns">
+						<a href="/productDetail/${ns.productId}">
+							<div class="ls_div_content_wrap">
+								<div class="ls_div_content">
+									<div class="image_wrap" data-productid="${ns.imageList[0].productId}" data-path="${ns.imageList[0].uploadPath}" data-uuid="${ns.imageList[0].uuid}" data-filename="${ns.imageList[0].fileName}">
+										<img>
+									</div>				
+									<div class="ls_category">
+										${ns.cateName}
+									</div>
+									<div class="ls_rating">
+										${ns.ratingAvg}
+									</div>
+									<div class="ls_productName">
+										${ns.productName}
+									</div>							
+								</div>
+							</div>
+						</a>					
+					</c:forEach>					
+				</div>
+			</div>
+				
 				
 				<div class="ls_wrap">
 				<div class="ls_div_subject">

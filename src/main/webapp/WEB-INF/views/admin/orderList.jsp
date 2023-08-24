@@ -131,7 +131,7 @@
 let searchForm = $('#searchForm');
 let moveForm = $('#moveForm');
 
-/* 작거 검색 버튼 동작 */
+/*  검색 버튼 동작 */
 $("#searchForm button").on("click", function(e){
 	
 	e.preventDefault();

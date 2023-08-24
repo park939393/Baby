@@ -1,6 +1,10 @@
 package com.baby.service;
 
+import java.util.List;
+
+import com.baby.model.Criteria;
 import com.baby.model.MemberVO;
+import com.baby.model.OrderDTO;
 
 public interface MemberService {
 
@@ -15,5 +19,11 @@ public interface MemberService {
 
 	/* 주문자 정보 */
 	public MemberVO getMemberInfo(String memberId);
+	
+	/* 주문 상품 리스트 */
+	public List<OrderDTO> getMyOrderList(String memberId);
+	
+
+	
 
 }

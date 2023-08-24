@@ -162,4 +162,20 @@ public class ProductServiceImpl implements ProductService {
 		return list;
 	}
 
+	@Override
+	public List<SelectDTO> newSelect() {
+		List<SelectDTO> list = productMapper.newSelect();
+		
+		list.forEach(dto -> {
+
+			int productId = dto.getProductId();
+
+			List<AttachImageVO> imageList = attachMapper.getAttachList(productId);
+
+			dto.setImageList(imageList);
+
+		});
+
+		return list;
+	}
 }

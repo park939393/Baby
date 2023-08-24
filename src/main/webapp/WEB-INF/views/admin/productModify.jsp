@@ -13,8 +13,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"
 	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 </head>
@@ -291,21 +290,23 @@
 			
 			
 			
-			/* 위지윅 적용 */
+			/*위지윅 적용*/
 			 
-				/* 책 소개 */
-			ClassicEditor
-				.create(document.querySelector('#productIntro_textarea'))
-				.catch(error=>{
-					console.error(error);
-				});
-				
-				/* 책 목차 */	
-			ClassicEditor
-			.create(document.querySelector('#productContents_textarea'))
-			.catch(error=>{
-				console.error(error);
+			
+			/*상품 소개*/
+			CKEDITOR.replace('productIntro', {
+				filebrowserUploadUrl : '/admin/imageUpload.do',
+				height : 200
+			// Set the desired height value here
 			});
+			
+			/*상품 내용*/
+			CKEDITOR.replace('productContents', {
+				filebrowserUploadUrl : '/admin/imageUpload.do',
+				height : 500
+			// Set the desired height value here
+			});
+			
 			
 				
 				

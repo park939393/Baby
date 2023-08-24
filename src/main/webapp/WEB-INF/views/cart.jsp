@@ -153,7 +153,7 @@
 									<fmt:formatNumber value="${ci.salePrice * ci.productCount}" pattern="#,### 원" />
 								</td>
 								<td class="td_width_4 table_text_align_center delete_btn">
-								<button class="delete_btn" data-cartid="${ci.cartId}">삭제</button>
+								<button class="delete_btn"  data-cartid="${ci.cartId}">삭제</button>
 								</td>
 							</tr>
 						</c:forEach>
@@ -427,6 +427,7 @@ $(".quantity_modify_btn").on("click", function(){
 $(".delete_btn").on("click", function(e){
 	e.preventDefault();
 	let cartId = $(this).data("cartid");
+	console.log(cartId)
 	$(".delete_cartId").val(cartId);
 	$(".quantity_delete_form").submit();
 });
