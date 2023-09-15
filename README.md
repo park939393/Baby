@@ -35,9 +35,11 @@
 ##### 구매자 정보 확인
 ##### 배송받을 배송지 변경
 ##### 총 결제 금액 확인
- ## 개발 언어 : Java 11, HTML, JavaScript, JSP
+ ## 개발 언어 : Java 11, HTML, JavaScript
  ## 개발 환경 : Spring, Apache Tomcat 9.0
  ## 데이터베이스 : My SQL
  ## 간단 소개 : 육아용품 쇼핑몰
  ## 시연영상 
 https://youtu.be/9hPZ1-Ng8wI
+
+
